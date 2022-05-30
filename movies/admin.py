@@ -8,7 +8,7 @@ from .models import Category, Genre, Movie, MovieShots, Actor, Rating, RatingSta
 
 class MovieAdminForm(forms.ModelForm):
     """Форма с виджетом ckeditor"""
-    description_ru = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
 
     class Meta:
         model = Movie
