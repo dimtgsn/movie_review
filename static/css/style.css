@@ -341,7 +341,7 @@ li > a:only-child:after {
 /*--/banner --*/
 
 .main-banner {
-    background: url(../images/banner.jpg) no-repeat center;
+    background: url('../single-post-pic2.jpg') no-repeat center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -352,7 +352,7 @@ li > a:only-child:after {
 }
 
 .main-banner.inner {
-    background: url(../images/banner.jpg) no-repeat center;
+    background: url('../single-post-pic2.jpg') no-repeat center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -867,8 +867,11 @@ ul.w3layouts-box-list li {
 
 }
 
-.desc1-left {
-    border: 1px solid #ddd;
+/*.desc1-left {*/
+/*    border: 1px solid #ddd;*/
+/*}*/
+.ul_detail li{
+    list-style: none;
 }
 
 .desc1-right h3 {
