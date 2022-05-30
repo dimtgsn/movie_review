@@ -1,4 +1,5 @@
 {% extends 'movies/base.html' %}
+{% load static %}
 {% block title %} {{ movie.title }} {% endblock title %}
 {% block container %}
     <div class="container py-md-3">
@@ -114,7 +115,7 @@
                 {% endfor %}
             </p>
             <p class="editContent">
-                {{ movie.description }}
+                {{ movie.description|safe }}
             </p>
         </div>
         <hr>
@@ -160,7 +161,7 @@
         </div>
         {% for review in movie.get_review %}
             <div class="media py-5">
-{#                <img src="{% static 'images/te2.jpg' %}" class="mr-3 img-fluid" alt="image">#}
+                <img src="{% static 'images/te2.jpg' %}" class="mr-3 img-fluid" alt="image">
                 <div class="media-body mt-4">
                     <h5 class="mt-0 editContent">
                         {{ review.name }}
@@ -168,12 +169,11 @@
                     <p class="mt-2 editContent">
                         {{ review.text }}
                     </p>
-                    <a href="#formReview"
-                       onclick="addReview('{{ review.name }}', '{{ review.id }}')">Ответить</a>
+                    <a href="#formReview" onclick="addReview('{{ review.name }}', '{{ review.id }}')">Ответить</a>
                     {% for rew in review.reviews_set.all %}
                         <div class="media mt-5 editContent">
                             <a class="pr-3" href="#">
-{#                                <img src="{% static 'images/te2.jpg' %}" class="img-fluid " alt="image">#}
+                                <img src="{% static 'images/te2.jpg' %}" class="img-fluid " alt="image">
                             </a>
                             <div class="media-body">
                                 <h5 class="mt-0 editContent">{{ rew.name }}</h5>
@@ -184,5 +184,13 @@
                 </div>
             </div>
         {% endfor %}
+    </div>
+    </div>
+        <script>
+            function addReview(name, id) {
+                document.getElementById("contactparent").value = id;
+                document.getElementById("contactcomment").innerText = `${name},`;
+            }
+        </script>
     </div>
 {% endblock movie %}

@@ -580,7 +580,7 @@ ul.tic-info li {
 
 span.money {
     font-size: 1em;
-    font-weight: 800;
+    /*font-weight: 800;*/
     color: #ff4c4c;
     letter-spacing: 2px;
 }
@@ -877,7 +877,7 @@ ul.w3layouts-box-list li {
 .desc1-right h3 {
     text-shadow: 0 1px 0 #ffffff;
     color: #1e272e;
-    font-size: 1.1em;
+    font-size: 1.5em;
     margin-bottom: 15px;
 }
 
