@@ -18,6 +18,55 @@
 Используемый стек:
    =
    + Python 3.10
-   + Django 4, django-ckeditor, django-recaptcha3
+   + Django 4, django-ckeditor, django-recaptcha3, django-allauth
    + SQLite
     
+Модели реализуемые в БД(таблицы и поля):
+   =
++ Категории:
+  + имя - Char 
+  + описание - Text 
+  + url - Slug
++ Фильмы 
+  + название - Char 
+  + слоган - Char 
+  + описание - Text 
+  + постер - Image 
+  + год - Date 
+  + страна - Char 
+  + режиссер - M2M 
+  + актеры - M2M
+  + жанр - M2M 
+  + премьера в мире - Char 
+  + бюджет - Char 
+  + сборы в США - Char 
+  + сборы в мире - Char 
+  + категория - FK 
+  + url - Slug 
+  + черновик - Bool
++ Кадры из фильма:
+  + название - Char 
+  + описание - Text 
+  + изображение - Image 
+  + фильм - FK
++ Режиссеры\Актеры:
+  + имя - Char 
+  + возраст - Int 
+  + описание - Text 
+  + изображение - Image
++ Звезды рейтинга:
+  + значение - Int
++ Рейтинг:
+  + ip - IP 
+  + звезда - FK 
+  + фильм - FK
++ Отзывы:
+  + email - Email 
+  + name - Char 
+  + text - Text 
+  + родитель (кому ответили)
+  + фильм - FK
++ Жанры:
+  + имя - Char 
+  + описание - Text 
+  + url - Slug
