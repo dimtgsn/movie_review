@@ -1,9 +1,10 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
+from django.http import HttpResponse
 from django.views.generic.base import View
 from .models import Category, Actor, RatingStar, Rating, Genre, Movie, MovieShots, Reviews
-from .forms import ReviewForm
+from .forms import ReviewForm, RatingForm
 
 
 class GenreYear:
@@ -28,6 +29,11 @@ class MovieDetailView(GenreYear, DetailView):
     model = Movie
     slug_field = "url"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["star_form"] = RatingForm()
+        return context
+
 
 class AddReview(View):
     """ Добавление отзыва"""
@@ -44,7 +50,7 @@ class AddReview(View):
 
 
 class ActorView(GenreYear, DetailView):
-    """Вывод информации о актёре"""
+    """Вывод информации об актёре"""
     model = Actor
     template_name = 'movies/actor.html'
     slug_field = "name"
@@ -66,4 +72,27 @@ class FilterMoviesView(GenreYear, ListView):
         context["year"] = ''.join([f"year={x}&" for x in self.request.GET.getlist("year")])
         context["genre"] = ''.join([f"genre={x}&" for x in self.request.GET.getlist("genre")])
         return context
+
+
+class AddStarRating(View):
+    """Добавление рейтинга фильму"""
+    def get_client_ip(self, request):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        return ip
+
+    def post(self, request):
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            Rating.objects.update_or_create(
+                ip=self.get_client_ip(request),
+                movie_id=int(request.POST.get("movie")),
+                defaults={'star_id': int(request.POST.get("star"))}
+            )
+            return HttpResponse(status=201)
+        else:
+            return HttpResponse(status=400)
 
