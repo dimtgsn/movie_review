@@ -1128,7 +1128,15 @@ h2.logo-2 a {
     text-shadow: 2px 5px 3px rgba(0, 0, 0, 0.06);
     letter-spacing: 1px;
 }
-
+.header-a{
+    cursor: pointer;
+    outline: none;
+    outline-offset: -2px;
+    color: rgb(255, 255, 255);
+    font-size: 40px;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: Source Sans Pro, sans-serif;
+}
 /*--contact--*/
 .contact-right-content input[type="text"],
 .contact-right-content input[type="email"],

@@ -16,6 +16,11 @@ class MovieDetailView(DetailView):
     model = Movie
     slug_field = "url"
 
+    # def get_context_data(self, *args, **kwargs):
+    #     contex = super().get_context_data(*args, **kwargs)
+    #     contex["categories"] = Category.objects.all()
+    #     return contex
+
 
 class AddReview(View):
     """ Добавление отзыва"""
