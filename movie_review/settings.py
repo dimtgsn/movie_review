@@ -45,6 +45,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'movie_review.urls'
@@ -203,3 +204,5 @@ RECAPTCHA_PUBLIC_KEY = "6Le2DjQgAAAAAK6MTq8SaPg4pblsbeJ-yz3465yD"
 RECAPTCHA_PRIVATE_KEY = "6Le2DjQgAAAAAEmJBu805ZEvebci0zAZNvjyUNqO"
 RECAPTCHA_DEFAULT_ACTION = 'generic'
 RECAPTCHA_SCORE_THRESHOLD = 0.5
+
+SITE_ID = 1
