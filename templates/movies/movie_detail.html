@@ -1,12 +1,12 @@
 {% extends 'movies/base.html' %}
-{% load static %}
+{% load static i18n %}
 {% block title %} {{ movie.title }} {% endblock title %}
 {% block container %}
     <div class="container py-md-3">
 {% endblock container %}
 
 {% block sidebar %}
-    <div class="side-bar col-lg-3">
+    <div class="side-bar col-lg-4">
 {% endblock sidebar %}
 
 {% block movie %}
@@ -20,17 +20,17 @@
                     {{ movie.title }}
                 </h3>
                 <h5 class="editContent"></h5>
-                <ul class="ul_detail">
-                    <li>
-                        <span><b>Год:</b> {{ movie.year }}</span></li>
-                    <li>
-                        <span><b>Страна:</b> {{ movie.country }}</span>
+                <ul>
+                    <li style="list-style: none">
+                        <span><b>{% trans 'Год' %}:</b> {{ movie.year }}</span></li>
+                    <li style="list-style: none">
+                        <span><b>{% trans 'Страна' %}:</b> {{ movie.country }}</span>
                     </li>
-                    <li>
-                        <span><b>Слоган:</b> {{ movie.tagline }}</span>
+                    <li style="list-style: none">
+                        <span><b>{% trans 'Слоган' %}:</b> {{ movie.tagline }}</span>
                     </li>
-                    <li>
-                        <span><b>Режиссер:</b>
+                    <li style="list-style: none">
+                        <span><b>{% trans 'Режиссер' %}:</b>
                             {% for director in movie.directors.all %}
                                 <a href="{{ director.get_absolute_url }}">
                                     {{ director.name }}
@@ -38,7 +38,7 @@
                             {% endfor %}
                         </span>
                     </li>
-                    <li><span><b>Актеры:</b>
+                    <li style="list-style: none"><span><b>{% trans 'Актеры' %}:</b>
                         {% for actor in movie.actors.all %}
                             <a href="{{ actor.get_absolute_url }}">
                                     {{ actor.name }}
@@ -46,26 +46,25 @@
                         {% endfor %}
                                 </span>
                     </li>
-                    <li><span><b>Жанр:</b>
+                    <li style="list-style: none"><span><b>{% trans 'Жанр' %}:</b>
                         {% for genre in movie.genres.all %}
                             {{ genre.name }}
                         {% endfor %}
                                     </span>
                     </li>
                     <li>
-                        <span><b>Премьера в мире:</b> {{ movie.world_premiere }}</span>
+                        <span><b>{% trans 'Премьера в мире' %}:</b> {{ movie.world_premiere }}</span>
                     </li>
                     <li>
-                        <span><b>Бюджет:</b> ${{ movie.budget }}</span></li>
+                        <span><b>{% trans 'Бюджет' %}:</b> ${{ movie.budget }}</span></li>
                     <li>
-                        <span><b>Сборы в США:</b> ${{ movie.fees_in_usa }}</span></li>
+                        <span><b>{% trans 'Сборы в США' %}:</b> ${{ movie.fees_in_usa }}</span></li>
                     <li>
-                        <span><b>Сборы в мире:</b> ${{ movie.fees_in_world }}</span>
+                        <span><b>{% trans 'Сборы в мире' %}:</b> ${{ movie.fees_in_world }}</span>
                     </li>
                     <li>
-                    <!-- Rating form render-->
                         <form action="{% url 'add_rating' %}" method="post" name="rating">
-                            <b>Рейтинг:</b>
+                            <b>{% trans 'Рейтинг' %}:</b>
                             {% csrf_token %}
                             <input type="hidden" value="{{ movie.id }}" name="movie">
                             <span class="rating">
@@ -77,9 +76,9 @@
                             </span>
                             <span class="editContent">4.0</span>
                         </form>
-                    <!-- //Rating form render-->
                     </li>
                 </ul>
+
                 <div class="share-desc">
                     <div class="share">
                         <h4 class="editContent">
@@ -107,12 +106,14 @@
             </div>
         </div>
         <div class="row sub-para-w3layouts mt-5">
+
             <h3 class="shop-sing editContent">
-                О фильме {{ movie.title }}
+                {% trans 'О фильме'  %} {{ movie.title }}
             </h3>
             <p>
                 {% for image in movie.movieshots_set.all %}
-                    <img src="{{ image.image.url }}" class="img-movie-shots" alt="{{ image.description }}">
+                    <img src="{{ image.image.url }}" class="img-movie-shots "
+                         alt="{{ image.description }}">
                 {% endfor %}
             </p>
             <p class="editContent">
@@ -126,9 +127,10 @@
                 <div class="contact-single">
                     <h3 class="editContent">
                         <span class="sub-tittle editContent">{{ movie.reviews_set.count }}</span>
-                        Оставить отзыв
+                        {% trans 'Оставить отзыв ' %}
                     </h3>
-                    <form action="{% url 'add_review' movie.id %}" method="post" class="mt-4" id="formReview">
+                    <form action="{% url 'add_review' movie.id %}" method="post" class="mt-4"
+                          id="formReview">
                         {% csrf_token %}
                         <input type="hidden" name="parent" id="contactparent" value="">
                         <div class="form-group editContent">
@@ -152,7 +154,8 @@
                             </div>
                             {{ form.captcha }}
                         </div>
-                        <button type="submit" class="mt-3 btn btn-success btn-block py-3">
+                        <button type="submit"
+                                class="mt-3 btn btn-success btn-block py-3">
                             Отправить
                         </button>
                     </form>
@@ -170,11 +173,13 @@
                     <p class="mt-2 editContent">
                         {{ review.text }}
                     </p>
-                    <a href="#formReview" onclick="addReview('{{ review.name }}', '{{ review.id }}')">Ответить</a>
+                    <a href="#formReview"
+                       onclick="addReview('{{ review.name }}', '{{ review.id }}')">Ответить</a>
                     {% for rew in review.reviews_set.all %}
                         <div class="media mt-5 editContent">
                             <a class="pr-3" href="#">
-                                <img src="{% static 'images/te2.jpg' %}" class="img-fluid " alt="image">
+                                <img src="{% static 'images/te2.jpg' %}" class="img-fluid "
+                                     alt="image">
                             </a>
                             <div class="media-body">
                                 <h5 class="mt-0 editContent">{{ rew.name }}</h5>
@@ -186,12 +191,11 @@
             </div>
         {% endfor %}
     </div>
-    </div>
-        <script>
-            function addReview(name, id) {
-                document.getElementById("contactparent").value = id;
-                document.getElementById("contactcomment").innerText = `${name},`;
-            }
-        </script>
-    </div>
+    <script>
+        function addReview(name, id) {
+            document.getElementById("contactparent").value = id;
+            document.getElementById("contactcomment").innerText = `${name}, `
+        }
+
+    </script>
 {% endblock movie %}

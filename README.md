@@ -18,6 +18,6 @@
 Используемый стек:
    =
    + Python 3.10
-   + Django 4, django-ckeditor
+   + Django 4, django-ckeditor, django-recaptcha3
    + SQLite
     
